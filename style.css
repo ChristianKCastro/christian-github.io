@@ -29,6 +29,7 @@ body {
 
 .container {
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     background-color: var(--primary);
     border: var(--pixel-border);
@@ -132,6 +133,12 @@ section {
 .info-content {
     display: grid;
     gap: 15px;
+
+    @media (min-width: 600px) {
+        .info-content {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 }
 
 .info-item {
@@ -224,9 +231,21 @@ section {
 .skill-level {
     height: 100%;
     background-color: var(--accent);
+    height: 10px;
+    border: 1px solid var(--primary-dark);
     position: absolute;
     top: 0;
     left: 0;
+}
+
+a, .btn, .skill-level {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--lighter);
+    color: var(--primary-dark);
+    transform: scale(1.05);
 }
 
 /* Animação de pulsação para as barras de habilidade */
@@ -254,7 +273,7 @@ section {
     margin-top: 40px;
     padding: 20px 0;
     font-size: 12px;
-    color: var(--light);
+    color: var(--lightest);
     border-top: var(--pixel-border);
 }
 
