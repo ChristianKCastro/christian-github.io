@@ -1,1 +1,2 @@
-This is my fist try to do a HTML code for my GitHub Page, i use CSS for stylize the code and add a 8-bit vibe.
+📌 Desenvolvido com **HTML, CSS e JavaScript**  
+📌 Design responsivo e foco em boas práticas de desenvolvimento  
