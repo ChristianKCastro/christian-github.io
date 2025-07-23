@@ -1,116 +1,322 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Korb Design • Portfólio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Korb Design • Portfólio Glacial</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Seu CSS externo -->
-    <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Swiper.js for the carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <style>
+    /* Custom styles for the "Ice Wall" theme */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f9ff; /* Very light blue, like a clear sky */
+      color: #0c4a6e; /* Darker, desaturated blue for text */
+      overflow-x: hidden;
+    }
+
+    /* Animated snowfall background */
+    #snow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes snowfall {
+      0% { transform: translateY(-10vh); }
+      100% { transform: translateY(110vh); }
+    }
+
+    .snowflake {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation-name: snowfall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    /* Light glassmorphism effect, like a sheet of ice */
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .glass-card-light .p-6 {
+      flex-grow: 1;
+    }
+
+    /* Reveal on scroll animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Swiper arrow styling for light theme */
+    .swiper-button-next, .swiper-button-prev {
+        color: #0c4a6e; /* Dark blue arrows */
+        background-color: rgba(255,255,255,0.3);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        backdrop-filter: blur(5px);
+        transition: background-color 0.3s ease;
+    }
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+        background-color: rgba(255,255,255,0.6);
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+        font-size: 20px;
+        font-weight: bold;
+    }
+  </style>
 </head>
 
-<body>
-    <!-- NAVBAR -->
-    <header class="header">
-        <div class="logo-container">
-            <img src="/logo.korb.png" alt="Logo Korb" class="logo" />
-        </div>
-        <nav class="nav">
-            <a href="#home" class="nav-link">Início</a>
-            <a href="#sobre" class="nav-link">Sobre</a>
-            <a href="#portfolio" class="nav-link">Portfólio</a>
-            <a href="#contato" class="nav-link">Contato</a>
-        </nav>
-    </header>
+<body class="antialiased relative">
 
-    <!-- HERO -->
-    <section id="home" class="hero">
-        <h1 class="hero-title">
-            Design que comunica <br />
-            <span class="highlight">com alma.</span>
+  <!-- Animated Snow Background -->
+  <div id="snow-container"></div>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-white/30 backdrop-blur-md border-b border-white/50 transition-all duration-300">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#home" class="text-2xl font-bold text-sky-800 tracking-widest">KORB<sup class="text-sm text-sky-600">^</sup></a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#sobre" class="text-sky-700 hover:text-sky-900 font-medium transition-colors duration-300">Sobre</a>
+        <a href="#portfolio" class="text-sky-700 hover:text-sky-900 font-medium transition-colors duration-300">Portfólio</a>
+        <a href="#contato" class="text-sky-700 hover:text-sky-900 font-medium transition-colors duration-300">Contato</a>
+      </nav>
+      <a href="#contato" class="hidden md:block bg-sky-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-sky-700 transition-colors duration-300">
+        Vamos Conversar
+      </a>
+      <button class="md:hidden text-sky-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="min-h-screen flex items-center justify-center text-center px-6 relative">
+      <div class="max-w-4xl z-10">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-sky-900 leading-tight reveal">
+          Design que comunica <br />
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-blue-600">
+            com alma.
+          </span>
         </h1>
-        <p class="hero-subtitle">
-            Sites e identidades visuais feitos para expressar o que sua marca realmente é.
+        <p class="mt-6 text-lg md:text-xl text-sky-800 max-w-2xl mx-auto reveal" style="transition-delay: 200ms;">
+          Crio sites e identidades visuais que expressam a verdadeira essência da sua marca, com clareza, leveza e funcionalidade.
         </p>
-    </section>
-
-    <!-- SOBRE -->
-    <section id="sobre" class="sobre">
-        <h2 class="section-title">Sobre mim</h2>
-        <p class="section-text">
-            Desde pequeno, o design sempre esteve em mim, não como uma escolha profissional imediata, mas como uma
-            forma natural de olhar para o mundo. Com o tempo, essa sensibilidade se transformou em vocação: a vontade de
-            tornar o mundo um lugar mais bonito, mais colorido, mais significativo.</p>
-
-        <p class="section-text">
-            Hoje, atuo como um intermediador entre o que o cliente precisa e aquilo que, com minha visão estética,
-            acredito ser o melhor caminho. Escuto com atenção, traduzo ideias em formas e cores, e crio com propósito.
-            Não sigo uma metodologia rígida, mas sou guiado por algo que considero essencial: o design precisa fazer
-            sentido. Cada linha de código, cada paleta, cada elemento visual carrega uma intenção. O que será sentido? O
-            que será comunicado?</p>
-
-        <p class="section-text">
-            Meu estilo é uma mistura do elegante com o moderno, com um toque de ousadia nas cores. Gosto de contrastes —
-            como os artistas que me inspiram, vejo beleza na mistura dos opostos. E, acima de tudo, quero que quem veja
-            meus trabalhos perceba algo maior: que não faço design apenas por mim, mas porque carrego um propósito. E
-            esse propósito transborda em tudo o que crio.
-        </p>
-    </section>
-
-    <!-- PORTFÓLIO -->
-    <section id="portfolio" class="portfolio">
-  <h2 class="section-title">Projetos recentes</h2>
-  <p class="section-text">
-    Aqui estão algumas das minhas últimas criações: interfaces modernas, funcionais e cheias de propósito. Desenvolvo sites completos com foco em usabilidade, responsividade e identidade visual. Também trabalho com Angular e outras tecnologias web e apps para criar soluções robustas e elegantes.
-  </p>
-
-  <div class="projetos">
-    <div class="projeto">
-      <img src="logo_underline.png" alt="Landing Page Empresa" class="projeto-img" />
-      <div class="projeto-conteudo">
-        <h3 class="projeto-titulo">Landing page institucional</h3>
-        <p class="projeto-descricao">
-          Uma interface pensada para destacar os valores de uma empresa com elegância, contraste e clareza visual. O projeto foi desenvolvido com HTML, CSS e JavaScript moderno.
-        </p>
-        <a href="http://underline.page/" target="_blank" class="projeto-link">Ver projeto</a>
+        <div class="mt-10 reveal" style="transition-delay: 400ms;">
+          <a href="#portfolio" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transform transition-transform duration-300 shadow-lg shadow-sky-500/20">
+            Ver meus projetos
+          </a>
+        </div>
       </div>
-    </div>
-
-    <div class="projeto">
-      <img src=".logo.png" alt="Loja de Cartas Magic" class="projeto-img" />
-      <div class="projeto-conteudo">
-        <h3 class="projeto-titulo">Loja virtual de cartas</h3>
-        <p class="projeto-descricao">
-          Uma loja inspirada no universo de Magic: The Gathering, com estrutura completa para exibição de produtos e design voltado à experiência visual. Desenvolvido com Angular e estilizado com cuidado nos detalhes.
-        </p>
-        <a href="https://christiankcastro.github.io/magickai/" target="_blank" class="projeto-link">Ver projeto</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- CONTATO -->
-    <section id="contato" class="contato">
-        <h2 class="section-title">Fale comigo</h2>
-        <form class="form" action="mailto:christian_korb@hotmail.com" method="POST" enctype="text/plain">
-            <input type="text" placeholder="Seu nome" name="nome" class="input" required />
-            <input type="email" placeholder="Seu e-mail" name="email" class="input" required />
-            <textarea placeholder="Mensagem" name="mensagem" class="textarea" required></textarea>
-            <button type="submit" class="btn-submit">Enviar</button>
-        </form>
     </section>
 
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        <p class="footer-logo">Korb <sup>^</sup></p>
-        <p class="footer-text">Design por Korb Design • 2025</p>
-    </footer>
+    <!-- SOBRE MIM SECTION -->
+    <section id="sobre" class="py-20 md:py-32">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+          <h2 class="text-4xl md:text-5xl font-bold text-sky-900">Sobre mim</h2>
+          <div class="w-24 h-1 bg-sky-500 mx-auto mt-4 mb-10 rounded"></div>
+          <p class="text-lg text-sky-800 leading-relaxed">
+            Desde pequeno, o design sempre esteve em mim — não como uma escolha profissional imediata, mas como uma forma natural de olhar para o mundo. Com o tempo, essa sensibilidade se transformou em vocação: a vontade de tornar o mundo um lugar mais bonito, mais leve, mais significativo.
+            <br /><br />
+            Hoje, atuo como um intermediador entre o que o cliente precisa e aquilo que, com minha visão estética, acredito ser o melhor caminho. Escuto com atenção para criar soluções que não apenas pareçam belas, mas que também gerem resultados reais.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFÓLIO SECTION -->
+    <section id="portfolio" class="py-20 md:py-32">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+          <h2 class="text-4xl md:text-5xl font-bold text-sky-900">Projetos Recentes</h2>
+          <p class="text-lg text-sky-800 mt-4">Navegue pelos meus trabalhos mais recentes.</p>
+        </div>
+
+        <!-- Swiper Carousel -->
+        <div class="swiper project-swiper reveal">
+          <div class="swiper-wrapper py-4">
+            
+            <!-- Project Slide 1: App com IA -->
+            <div class="swiper-slide">
+              <div class="glass-card-light rounded-2xl overflow-hidden group shadow-lg shadow-sky-500/10">
+                <img src="https://placehold.co/800x600/2563eb/ffffff?text=App+de+IA+para+Dados" alt="Imagem do Projeto de App com IA" class="w-full h-64 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-sky-900">App com Inteligência Artificial</h3>
+                  <p class="text-sky-800 mt-2">Criando um app com IA para auxiliar no estudo de Análise de Dados para estudantes de todas as idades.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Slide 2: Marca Corporativa -->
+            <div class="swiper-slide">
+              <div class="glass-card-light rounded-2xl overflow-hidden group shadow-lg shadow-sky-500/10">
+                <img src="https://placehold.co/800x600/60a5fa/ffffff?text=Marca+Tech" alt="Imagem do Projeto de Marca Corporativa" class="w-full h-64 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-sky-900">Marca Corporativa</h3>
+                  <p class="text-sky-800 mt-2">Desenvolvimento de identidade visual completa para uma startup de tecnologia, do logo ao manual da marca.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Slide 3: E-commerce -->
+            <div class="swiper-slide">
+              <div class="glass-card-light rounded-2xl overflow-hidden group shadow-lg shadow-sky-500/10">
+                <img src="https://placehold.co/800x600/3b82f6/ffffff?text=E-commerce+Moderno" alt="Imagem do Projeto de E-commerce" class="w-full h-64 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-sky-900">Site E-commerce</h3>
+                  <p class="text-sky-800 mt-2">Design de interface (UI) e experiência do usuário (UX) para uma loja online de moda sustentável.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Project Slide 4: Dashboard -->
+            <div class="swiper-slide">
+              <div class="glass-card-light rounded-2xl overflow-hidden group shadow-lg shadow-sky-500/10">
+                <img src="https://placehold.co/800x600/1d4ed8/ffffff?text=Dashboard+Interativo" alt="Imagem do Projeto de Dashboard" class="w-full h-64 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-sky-900">Dashboard Interativo</h3>
+                  <p class="text-sky-800 mt-2">Desenvolvimento de um painel de visualização de dados para uma empresa de logística.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO SECTION -->
+    <section id="contato" class="py-20 md:py-32">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center reveal">
+          <h2 class="text-4xl md:text-5xl font-bold text-sky-900">Vamos criar algo incrível?</h2>
+          <p class="text-lg text-sky-800 mt-4 mb-12">
+            Se você tem uma ideia ou projeto em mente, entre em contato. Adoraria ouvir sobre seus desafios e objetivos.
+          </p>
+          
+          <form action="mailto:contato@korbdesign.com" method="POST" enctype="text/plain" class="space-y-6 text-left">
+            <div>
+              <label for="nome" class="text-sm font-medium text-sky-700">Seu nome</label>
+              <input type="text" name="nome" id="nome" required class="w-full mt-2 p-4 bg-white/70 border border-sky-200 rounded-lg text-sky-900 placeholder:text-sky-600/70 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-all" placeholder="Jon Snow" />
+            </div>
+            <div>
+              <label for="email" class="text-sm font-medium text-sky-700">Seu e-mail</label>
+              <input type="email" name="email" id="email" required class="w-full mt-2 p-4 bg-white/70 border border-sky-200 rounded-lg text-sky-900 placeholder:text-sky-600/70 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-all" placeholder="voce@muralha.com" />
+            </div>
+            <div>
+              <label for="mensagem" class="text-sm font-medium text-sky-700">Sua mensagem</label>
+              <textarea name="mensagem" id="mensagem" rows="5" required class="w-full mt-2 p-4 bg-white/70 border border-sky-200 rounded-lg text-sky-900 placeholder:text-sky-600/70 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-all" placeholder="O inverno está chegando, e eu preciso de um site..."></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold py-3 px-10 rounded-lg text-lg hover:scale-105 transform transition-transform duration-300 w-full md:w-auto shadow-lg shadow-sky-500/30">
+                Enviar Corvo
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-sky-200/50">
+    <div class="container mx-auto px-6 py-8 text-center text-sky-800">
+      <p class="text-lg font-semibold">Korb Design</p>
+      <p class="mt-2 text-sm">Design que constrói marcas e inspira pessoas.</p>
+      <p class="mt-4 text-xs">&copy; 2025 Korb Design. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Function to create snowflakes
+      function createSnowflakes() {
+        const container = document.getElementById('snow-container');
+        const snowflakeCount = 100; // Adjust for more/less snow
+        for (let i = 0; i < snowflakeCount; i++) {
+          const snowflake = document.createElement('div');
+          snowflake.className = 'snowflake';
+          const size = Math.random() * 4 + 1; // size between 1px and 5px
+          snowflake.style.width = `${size}px`;
+          snowflake.style.height = `${size}px`;
+          snowflake.style.left = `${Math.random() * 100}vw`;
+          snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // duration between 5s and 10s
+          snowflake.style.animationDelay = `${Math.random() * 5}s`;
+          container.appendChild(snowflake);
+        }
+      }
+
+      // Initialize Intersection Observer for reveal animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Initialize Swiper
+      const swiper = new Swiper('.project-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        grabCursor: true,
+        breakpoints: {
+          640: { slidesPerView: 1, spaceBetween: 20 },
+          768: { slidesPerView: 2, spaceBetween: 30 },
+          1024: { slidesPerView: 3, spaceBetween: 30 }
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+
+      // Start the snow
+      createSnowflakes();
+    });
+  </script>
+
 </body>
-
 </html>
